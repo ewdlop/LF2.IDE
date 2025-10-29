@@ -1,0 +1,219 @@
+.lf2ide-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.lf2ide-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    margin-right: 2rem;
+}
+
+.logo-icon {
+    font-size: 1.5rem;
+}
+
+.logo-text {
+    font-size: 1.2rem;
+}
+
+.logo-subtitle {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-left: 0.5rem;
+}
+
+.header-menu {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.menu-button {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.menu-button:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.icon {
+    font-size: 1rem;
+}
+
+.lf2ide-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+    background: #f8f9fa;
+}
+
+.sidebar-tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+}
+
+.tab-button:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.tab-button.active {
+    background: white;
+    font-weight: bold;
+    border-bottom: 2px solid #1e3c72;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tabs-container {
+    display: flex;
+    background: #e9ecef;
+    border-bottom: 1px solid #ddd;
+    overflow-x: auto;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #e9ecef;
+    border-right: 1px solid #ddd;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.tab.active {
+    background: white;
+    font-weight: bold;
+}
+
+.tab-name {
+    margin-right: 0.5rem;
+}
+
+.tab-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    padding: 0 0.25rem;
+    color: #666;
+}
+
+.tab-close:hover {
+    color: #dc3545;
+}
+
+.editor-container {
+    flex: 1;
+    overflow: hidden;
+    background: white;
+}
+
+.properties-panel {
+    width: 280px;
+    border-left: 1px solid #ddd;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    padding: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    background: white;
+}
+
+.panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.property-group {
+    margin-bottom: 1rem;
+}
+
+.property-label {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.property-value {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.empty-state {
+    text-align: center;
+    color: #999;
+    padding: 2rem 1rem;
+}
+
+.lf2ide-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: #2a5298;
+    color: white;
+    font-size: 0.875rem;
+    border-top: 1px solid #1e3c72;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+

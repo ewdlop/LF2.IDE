@@ -1,0 +1,206 @@
+@page "/"
+@rendermode InteractiveServer
+@inject ILF2DataService LF2DataService
+@inject EditorStateService EditorState
+
+<PageTitle>LF2 IDE - Blazor Server</PageTitle>
+
+<div class="editor-page">
+    @if (!string.IsNullOrEmpty(EditorState.CurrentFilePath))
+    {
+        <CodeEditor FilePath="@EditorState.CurrentFilePath" />
+    }
+    else
+    {
+        <div class="welcome-screen">
+            <div class="welcome-content">
+                <h1 class="welcome-title">🎮 歡迎使用 LF2 IDE</h1>
+                <p class="welcome-subtitle">Little Fighter 2 整合開發環境 - Blazor Server 版本</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📄</div>
+                        <h3>代碼編輯器</h3>
+                        <p>強大的 Monaco Editor 支援語法高亮</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>加密/解密</h3>
+                        <p>自動處理 LF2 .dat 文件加密</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🖼️</div>
+                        <h3>精靈查看器</h3>
+                        <p>可視化查看角色精靈和動畫</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎬</div>
+                        <h3>框架編輯器</h3>
+                        <p>直觀的框架數據編輯工具</p>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="action-button primary" @onclick="CreateNewFile">
+                        <span class="icon">📄</span>
+                        創建新文件
+                    </button>
+                    <button class="action-button" @onclick="OpenExistingFile">
+                        <span class="icon">📂</span>
+                        打開現有文件
+                    </button>
+                </div>
+
+                <div class="info-section">
+                    <h3>快速開始</h3>
+                    <ol>
+                        <li>使用左側文件瀏覽器選擇 LF2 目錄</li>
+                        <li>打開 .dat 文件進行編輯</li>
+                        <li>使用框架列表查看角色動畫</li>
+                        <li>保存更改並在遊戲中測試</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .editor-page {
+        height: 100%;
+        width: 100%;
+    }
+
+    .welcome-screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    .welcome-content {
+        max-width: 900px;
+        background: white;
+        padding: 3rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    .welcome-title {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        color: #1e3c72;
+    }
+
+    .welcome-subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .feature-card {
+        text-align: center;
+        padding: 1.5rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: #1e3c72;
+    }
+
+    .feature-card p {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .quick-actions {
+        display: flex;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+
+    .action-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        border: 2px solid #1e3c72;
+        background: white;
+        color: #1e3c72;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 600;
+    }
+
+    .action-button.primary {
+        background: #1e3c72;
+        color: white;
+    }
+
+    .action-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .info-section {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .info-section h3 {
+        color: #1e3c72;
+        margin-bottom: 1rem;
+    }
+
+    .info-section ol {
+        margin-left: 1.5rem;
+    }
+
+    .info-section li {
+        margin-bottom: 0.5rem;
+        color: #495057;
+    }
+</style>
+
+@code {
+    private void CreateNewFile()
+    {
+        // TODO: Implement new file dialog
+    }
+
+    private void OpenExistingFile()
+    {
+        // TODO: Implement file picker
+    }
+}
+

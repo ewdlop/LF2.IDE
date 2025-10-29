@@ -1,0 +1,143 @@
+@inherits LayoutComponentBase
+@inject EditorStateService EditorState
+
+<div class="lf2ide-container">
+    <div class="lf2ide-header">
+        <div class="logo">
+            <span class="logo-icon">🎮</span>
+            <span class="logo-text">LF2 IDE</span>
+            <span class="logo-subtitle">Blazor Server</span>
+        </div>
+        <div class="header-menu">
+            <button class="menu-button" @onclick="NewFile">
+                <span class="icon">📄</span> 新建
+            </button>
+            <button class="menu-button" @onclick="OpenFile">
+                <span class="icon">📂</span> 打開
+            </button>
+            <button class="menu-button" @onclick="SaveFile">
+                <span class="icon">💾</span> 保存
+            </button>
+            <button class="menu-button">
+                <span class="icon">▶️</span> 運行
+            </button>
+        </div>
+    </div>
+
+    <div class="lf2ide-main">
+        <div class="sidebar">
+            <div class="sidebar-tabs">
+                <button class="tab-button @(activeTab == "explorer" ? "active" : "")" @onclick='() => activeTab = "explorer"'>
+                    文件瀏覽器
+                </button>
+                <button class="tab-button @(activeTab == "frames" ? "active" : "")" @onclick='() => activeTab = "frames"'>
+                    框架列表
+                </button>
+            </div>
+            <div class="sidebar-content">
+                @if (activeTab == "explorer")
+                {
+                    <FileExplorer />
+                }
+                else if (activeTab == "frames")
+                {
+                    <FrameList />
+                }
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="tabs-container">
+                @if (EditorState.OpenFiles.Any())
+                {
+                    @foreach (var file in EditorState.OpenFiles)
+                    {
+                        <div class="tab @(EditorState.CurrentFilePath == file ? "active" : "")" 
+                             @onclick="() => EditorState.SetCurrentFile(file)">
+                            <span class="tab-name">@Path.GetFileName(file)</span>
+                            <button class="tab-close" @onclick="() => EditorState.CloseFile(file)" @onclick:stopPropagation="true">×</button>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="editor-container">
+                @Body
+            </div>
+        </div>
+
+        <div class="properties-panel">
+            <div class="panel-header">屬性面板</div>
+            <div class="panel-content">
+                @if (EditorState.CurrentDataFile != null)
+                {
+                    <div class="property-group">
+                        <div class="property-label">文件名</div>
+                        <div class="property-value">@EditorState.CurrentDataFile.FileName</div>
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">已加密</div>
+                        <div class="property-value">@(EditorState.CurrentDataFile.IsEncrypted ? "是" : "否")</div>
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">框架數量</div>
+                        <div class="property-value">@EditorState.CurrentDataFile.Frames.Count</div>
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">精靈數量</div>
+                        <div class="property-value">@EditorState.CurrentDataFile.Sprites.Count</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state">請打開一個文件</div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="lf2ide-footer">
+        <div class="status-item">
+            @if (!string.IsNullOrEmpty(EditorState.CurrentFilePath))
+            {
+                <span>📄 @Path.GetFileName(EditorState.CurrentFilePath)</span>
+            }
+            else
+            {
+                <span>未打開文件</span>
+            }
+        </div>
+        <div class="status-item">
+            <span>準備就緒</span>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string activeTab = "explorer";
+
+    protected override void OnInitialized()
+    {
+        EditorState.OnChange += StateHasChanged;
+    }
+
+    private void NewFile()
+    {
+        // TODO: Implement new file dialog
+    }
+
+    private void OpenFile()
+    {
+        // TODO: Implement file open dialog
+    }
+
+    private void SaveFile()
+    {
+        // TODO: Implement save functionality
+    }
+
+    public void Dispose()
+    {
+        EditorState.OnChange -= StateHasChanged;
+    }
+}
+

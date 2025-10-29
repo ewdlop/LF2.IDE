@@ -1,0 +1,183 @@
+@inject IFileService FileService
+@inject EditorStateService EditorState
+@inject ILF2DataService LF2DataService
+
+<div class="file-explorer">
+    <div class="explorer-header">
+        <input type="text" class="path-input" @bind="currentPath" @bind:event="oninput" placeholder="輸入 LF2 目錄路徑..." />
+        <button class="btn-refresh" @onclick="LoadDirectory">🔄</button>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="loading">載入中...</div>
+    }
+    else if (files.Any() || directories.Any())
+    {
+        <div class="file-list">
+            @foreach (var dir in directories)
+            {
+                <div class="file-item folder" @onclick="() => OpenDirectory(dir)">
+                    <span class="icon">📁</span>
+                    <span class="name">@Path.GetFileName(dir)</span>
+                </div>
+            }
+            @foreach (var file in files)
+            {
+                <div class="file-item @(IsLF2File(file) ? "dat-file" : "")" 
+                     @onclick="() => OpenFile(file)">
+                    <span class="icon">@GetFileIcon(file)</span>
+                    <span class="name">@Path.GetFileName(file)</span>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            請輸入 LF2 目錄路徑並按下刷新按鈕
+        </div>
+    }
+</div>
+
+<style>
+    .file-explorer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .explorer-header {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .path-input {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 0.875rem;
+    }
+
+    .btn-refresh {
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-refresh:hover {
+        background: #f0f0f0;
+    }
+
+    .file-list {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .file-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .file-item:hover {
+        background: rgba(0,0,0,0.05);
+    }
+
+    .file-item.dat-file {
+        font-weight: 500;
+        color: #1e3c72;
+    }
+
+    .file-item.folder {
+        font-weight: 600;
+    }
+
+    .file-item .icon {
+        font-size: 1.2rem;
+    }
+
+    .file-item .name {
+        font-size: 0.875rem;
+    }
+
+    .loading, .empty-state {
+        padding: 2rem 1rem;
+        text-align: center;
+        color: #999;
+    }
+</style>
+
+@code {
+    private string currentPath = @"C:\LF2";
+    private List<string> files = new();
+    private List<string> directories = new();
+    private bool isLoading = false;
+
+    private async Task LoadDirectory()
+    {
+        if (string.IsNullOrWhiteSpace(currentPath) || !Directory.Exists(currentPath))
+            return;
+
+        isLoading = true;
+        StateHasChanged();
+
+        try
+        {
+            directories = (await FileService.GetDirectoriesAsync(currentPath)).ToList();
+            files = (await FileService.GetFilesAsync(currentPath, "*.*")).ToList();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void OpenDirectory(string directory)
+    {
+        currentPath = directory;
+        _ = LoadDirectory();
+    }
+
+    private async Task OpenFile(string filePath)
+    {
+        try
+        {
+            var dataFile = await LF2DataService.LoadDataFileAsync(filePath);
+            EditorState.SetCurrentFile(filePath, dataFile);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error opening file: {ex.Message}");
+        }
+    }
+
+    private bool IsLF2File(string filePath)
+    {
+        var ext = Path.GetExtension(filePath).ToLower();
+        return ext == ".dat" || ext == ".txt";
+    }
+
+    private string GetFileIcon(string filePath)
+    {
+        var ext = Path.GetExtension(filePath).ToLower();
+        return ext switch
+        {
+            ".dat" => "🎮",
+            ".txt" => "📝",
+            ".bmp" => "🖼️",
+            ".png" => "🖼️",
+            ".wav" => "🔊",
+            _ => "📄"
+        };
+    }
+}
+

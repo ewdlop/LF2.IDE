@@ -1,0 +1,93 @@
+@using BlazorMonaco
+@using BlazorMonaco.Editor
+@inject EditorStateService EditorState
+
+<div class="code-editor-wrapper">
+    @if (EditorState.CurrentDataFile != null)
+    {
+        <StandaloneCodeEditor @ref="_editor"
+                              Id="lf2-editor"
+                              ConstructionOptions="EditorConstructionOptions"
+                              OnDidInit="EditorOnDidInit"
+                              OnDidChangeModelContent="OnContentChanged"
+                              CssClass="monaco-editor-container" />
+    }
+    else
+    {
+        <div class="empty-editor">
+            <p>正在載入...</p>
+        </div>
+    }
+</div>
+
+<style>
+    .code-editor-wrapper {
+        height: 100%;
+        width: 100%;
+    }
+
+    .monaco-editor-container {
+        height: 100%;
+        width: 100%;
+    }
+
+    .empty-editor {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: #999;
+    }
+</style>
+
+@code {
+    [Parameter] public string? FilePath { get; set; }
+    
+    private StandaloneCodeEditor? _editor;
+    private bool _isInitialized = false;
+
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(StandaloneCodeEditor editor)
+    {
+        return new StandaloneEditorConstructionOptions
+        {
+            Language = "plaintext",
+            Value = EditorState.CurrentDataFile?.Content ?? "",
+            Theme = "vs",
+            AutomaticLayout = true,
+            FontSize = 14,
+            LineNumbers = "on",
+            RenderWhitespace = "selection",
+            ScrollBeyondLastLine = false,
+            MinimapEnabled = true
+        };
+    }
+
+    private async Task EditorOnDidInit()
+    {
+        _isInitialized = true;
+        
+        if (_editor != null && EditorState.CurrentDataFile != null)
+        {
+            await _editor.SetValue(EditorState.CurrentDataFile.Content);
+        }
+    }
+
+    private async Task OnContentChanged(ModelContentChangedEvent e)
+    {
+        if (_editor != null && EditorState.CurrentDataFile != null && _isInitialized)
+        {
+            var content = await _editor.GetValue();
+            EditorState.CurrentDataFile.Content = content;
+            EditorState.CurrentDataFile.IsModified = true;
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (_isInitialized && _editor != null && EditorState.CurrentDataFile != null)
+        {
+            await _editor.SetValue(EditorState.CurrentDataFile.Content);
+        }
+    }
+}
+

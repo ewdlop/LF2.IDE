@@ -1,0 +1,113 @@
+@inject EditorStateService EditorState
+
+<div class="frame-list">
+    @if (EditorState.CurrentDataFile != null && EditorState.CurrentDataFile.Frames.Any())
+    {
+        <div class="frame-count">共 @EditorState.CurrentDataFile.Frames.Count 個框架</div>
+        <div class="frames-container">
+            @foreach (var frame in EditorState.CurrentDataFile.Frames)
+            {
+                <div class="frame-item" @onclick="() => SelectFrame(frame)">
+                    <div class="frame-header">
+                        <span class="frame-index">#{frame.Index}</span>
+                        <span class="frame-name">@frame.Name</span>
+                    </div>
+                    <div class="frame-details">
+                        <span class="detail-item">pic: @frame.Pic</span>
+                        <span class="detail-item">next: @frame.Next</span>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            未檢測到框架<br/>
+            請打開一個 .dat 文件
+        </div>
+    }
+</div>
+
+<style>
+    .frame-list {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .frame-count {
+        padding: 0.75rem;
+        background: white;
+        border-bottom: 1px solid #ddd;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+
+    .frames-container {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .frame-item {
+        padding: 0.75rem;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .frame-item:hover {
+        background: rgba(30, 60, 114, 0.05);
+    }
+
+    .frame-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .frame-index {
+        font-weight: bold;
+        color: #1e3c72;
+        font-size: 0.875rem;
+    }
+
+    .frame-name {
+        font-size: 0.875rem;
+        color: #495057;
+    }
+
+    .frame-details {
+        display: flex;
+        gap: 0.75rem;
+        font-size: 0.75rem;
+        color: #6c757d;
+    }
+
+    .empty-state {
+        padding: 2rem 1rem;
+        text-align: center;
+        color: #999;
+        line-height: 1.6;
+    }
+</style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        EditorState.OnChange += StateHasChanged;
+    }
+
+    private void SelectFrame(Frame frame)
+    {
+        // TODO: Scroll to frame in editor or show frame details
+        Console.WriteLine($"Selected frame: {frame.Index} - {frame.Name}");
+    }
+
+    public void Dispose()
+    {
+        EditorState.OnChange -= StateHasChanged;
+    }
+}
+
