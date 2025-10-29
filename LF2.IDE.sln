@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LF2.IDE", "LF2.IDE\LF2.IDE.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LF2IDE.BlazorServer", "LF2IDE.BlazorServer\LF2IDE.BlazorServer.csproj", "{765E8C2A-8AC1-EC45-CF6B-D237788AE47B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LF2IDE.Standard", "LF2IDE.Standard\LF2IDE.Standard.csproj", "{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,18 @@ Global
 		{765E8C2A-8AC1-EC45-CF6B-D237788AE47B}.Release|x64.Build.0 = Release|Any CPU
 		{765E8C2A-8AC1-EC45-CF6B-D237788AE47B}.Release|x86.ActiveCfg = Release|Any CPU
 		{765E8C2A-8AC1-EC45-CF6B-D237788AE47B}.Release|x86.Build.0 = Release|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Debug|x64.Build.0 = Debug|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Debug|x86.Build.0 = Debug|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Release|x64.ActiveCfg = Release|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Release|x64.Build.0 = Release|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Release|x86.ActiveCfg = Release|Any CPU
+		{1D063BE3-DE1E-4A8D-BEE2-D605C5B4D77D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

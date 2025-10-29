@@ -1,17 +1,11 @@
-namespace LF2IDE.BlazorServer.Services;
+﻿namespace LF2IDE.BlazorServer.Services;
 
-public class FileService : IFileService
+public class FileService(IWebHostEnvironment environment, ILogger<FileService> logger) : IFileService
 {
-    private readonly IWebHostEnvironment _environment;
-    private readonly ILogger<FileService> _logger;
+    private readonly IWebHostEnvironment _environment = environment;
+    private readonly ILogger<FileService> _logger = logger;
 
-    public FileService(IWebHostEnvironment environment, ILogger<FileService> logger)
-    {
-        _environment = environment;
-        _logger = logger;
-    }
-
-    public async Task<string> ReadFileAsync(string filePath)
+	public async Task<string> ReadFileAsync(string filePath)
     {
         try
         {

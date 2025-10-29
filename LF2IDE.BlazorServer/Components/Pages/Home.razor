@@ -8,7 +8,7 @@
 <div class="editor-page">
     @if (!string.IsNullOrEmpty(EditorState.CurrentFilePath))
     {
-        <CodeEditor FilePath="@EditorState.CurrentFilePath" />
+        <LF2IDE.BlazorServer.Components.CodeEditor FilePath="@EditorState.CurrentFilePath" />
     }
     else
     {

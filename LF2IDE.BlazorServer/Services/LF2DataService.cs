@@ -1,22 +1,16 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 using LF2IDE.BlazorServer.Models;
 
 namespace LF2IDE.BlazorServer.Services;
 
-public class LF2DataService : ILF2DataService
+public class LF2DataService(IFileService fileService, ILogger<LF2DataService> logger) : ILF2DataService
 {
     private const string DefaultPassword = "odBearBecauseHeIsVeryGoodSiuHungIsAGo";
-    private readonly IFileService _fileService;
-    private readonly ILogger<LF2DataService> _logger;
+    private readonly IFileService _fileService = fileService;
+    private readonly ILogger<LF2DataService> _logger = logger;
 
-    public LF2DataService(IFileService fileService, ILogger<LF2DataService> logger)
-    {
-        _fileService = fileService;
-        _logger = logger;
-    }
-
-    public string Decrypt(byte[] data, string? password = null)
+	public string Decrypt(byte[] data, string? password = null)
     {
         try
         {
