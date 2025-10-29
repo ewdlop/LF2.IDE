@@ -1,0 +1,113 @@
+@page "/editor"
+@inject EditorStateService EditorState
+
+<PageTitle>編輯器 - LF2 IDE</PageTitle>
+
+<div class="editor-page">
+    <div class="editor-layout">
+        <!-- 左側：檔案瀏覽器 -->
+        <div class="file-browser-panel">
+            <FileExplorer />
+        </div>
+
+        <!-- 中間：代碼編輯器 -->
+        <div class="code-editor-panel">
+            <LF2IDE.BlazorServer.Components.CodeEditor />
+        </div>
+
+        <!-- 右側：屬性面板 -->
+        <div class="properties-panel">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">檔案資訊</h5>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(EditorState.CurrentFilePath))
+                    {
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">檔案名稱：</dt>
+                            <dd class="col-sm-8">@System.IO.Path.GetFileName(EditorState.CurrentFilePath)</dd>
+
+                            <dt class="col-sm-4">檔案路徑：</dt>
+                            <dd class="col-sm-8"><small>@EditorState.CurrentFilePath</small></dd>
+
+                            @if (EditorState.CurrentLF2DataFile != null)
+                            {
+                                <dt class="col-sm-4">數據名稱：</dt>
+                                <dd class="col-sm-8">@EditorState.CurrentLF2DataFile.Name</dd>
+
+                                <dt class="col-sm-4">精靈圖表：</dt>
+                                <dd class="col-sm-8">@EditorState.CurrentLF2DataFile.Sprites.Count 個</dd>
+
+                                <dt class="col-sm-4">框架總數：</dt>
+                                <dd class="col-sm-8">@EditorState.CurrentLF2DataFile.Frames.Count 個</dd>
+                            }
+                        </dl>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">未開啟任何檔案</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .editor-page {
+        height: calc(100vh - 3.5rem);
+        overflow: hidden;
+    }
+
+    .editor-layout {
+        display: grid;
+        grid-template-columns: 300px 1fr 300px;
+        height: 100%;
+        gap: 0;
+    }
+
+    .file-browser-panel {
+        border-right: 1px solid #dee2e6;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+        padding: 1rem;
+    }
+
+    .code-editor-panel {
+        overflow: hidden;
+        background-color: #1e1e1e;
+    }
+
+    .properties-panel {
+        border-left: 1px solid #dee2e6;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+        padding: 1rem;
+    }
+
+    @@media (max-width: 992px) {
+        .editor-layout {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .file-browser-panel,
+        .properties-panel {
+            max-height: 300px;
+        }
+    }
+</style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        EditorState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        EditorState.OnChange -= StateHasChanged;
+    }
+}
+

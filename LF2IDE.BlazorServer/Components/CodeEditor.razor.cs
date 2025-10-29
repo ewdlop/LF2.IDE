@@ -15,7 +15,7 @@ namespace LF2IDE.BlazorServer.Components
 			return new StandaloneEditorConstructionOptions
 			{
 				Language = "plaintext",
-				Value = EditorState.CurrentDataFile?.Content ?? "",
+				Value = EditorState.CurrentLF2DataFile?.Content ?? "",
 				Theme = "vs",
 				AutomaticLayout = true,
 				FontSize = 14,
@@ -29,27 +29,27 @@ namespace LF2IDE.BlazorServer.Components
 		{
 			_isInitialized = true;
 
-			if (_editor != null && EditorState.CurrentDataFile != null)
+			if (_editor != null && EditorState.CurrentLF2DataFile != null)
 			{
-				await _editor.SetValue(EditorState.CurrentDataFile.Content);
+				await _editor.SetValue(EditorState.CurrentLF2DataFile.Content);
 			}
 		}
 
 		private async Task OnContentChanged(ModelContentChangedEvent e)
 		{
-			if (_editor != null && EditorState.CurrentDataFile != null && _isInitialized)
+			if (_editor != null && EditorState.CurrentLF2DataFile != null && _isInitialized)
 			{
 				var content = await _editor.GetValue();
-				EditorState.CurrentDataFile.Content = content;
-				EditorState.CurrentDataFile.IsModified = true;
+				EditorState.CurrentLF2DataFile.Content = content;
+				EditorState.CurrentLF2DataFile.IsModified = true;
 			}
 		}
 
 		protected override async Task OnParametersSetAsync()
 		{
-			if (_isInitialized && _editor != null && EditorState.CurrentDataFile != null)
+			if (_isInitialized && _editor != null && EditorState.CurrentLF2DataFile != null)
 			{
-				await _editor.SetValue(EditorState.CurrentDataFile.Content);
+				await _editor.SetValue(EditorState.CurrentLF2DataFile.Content);
 			}
 		}
 	}

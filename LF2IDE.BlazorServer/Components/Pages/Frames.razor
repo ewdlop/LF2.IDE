@@ -1,0 +1,69 @@
+@page "/frames"
+@inject EditorStateService EditorState
+
+<PageTitle>框架檢視 - LF2 IDE</PageTitle>
+
+<div class="frames-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-4">框架檢視器</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 左側：檔案選擇 -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">選擇檔案</h5>
+                    </div>
+                    <div class="card-body" style="max-height: 70vh; overflow-y: auto;">
+                        <FileExplorer />
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右側：框架列表 -->
+            <div class="col-md-9">
+                @if (!string.IsNullOrEmpty(EditorState.CurrentFilePath))
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">@System.IO.Path.GetFileName(EditorState.CurrentFilePath)</h5>
+                        </div>
+                        <div class="card-body" style="max-height: 70vh; overflow-y: auto;">
+                            <FrameList />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <h4 class="alert-heading">請選擇一個 .dat 檔案</h4>
+                        <p>從左側的檔案瀏覽器中選擇一個 LF2 數據檔案（.dat），以查看其框架資訊。</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .frames-page {
+        padding: 2rem 0;
+    }
+</style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        EditorState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        EditorState.OnChange -= StateHasChanged;
+    }
+}
+

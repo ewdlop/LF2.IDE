@@ -1,0 +1,125 @@
+@page "/sprites"
+@inject EditorStateService EditorState
+
+<PageTitle>精靈圖表 - LF2 IDE</PageTitle>
+
+<div class="sprites-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-4">精靈圖表檢視器</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 左側：檔案選擇 -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">選擇檔案</h5>
+                    </div>
+                    <div class="card-body" style="max-height: 70vh; overflow-y: auto;">
+                        <FileExplorer />
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右側：精靈圖表列表 -->
+            <div class="col-md-9">
+                @if (EditorState.CurrentLF2DataFile != null && EditorState.CurrentLF2DataFile.Sprites.Any())
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">精靈圖表 (@EditorState.CurrentLF2DataFile.Sprites.Count 個)</h5>
+                        </div>
+                        <div class="card-body" style="max-height: 70vh; overflow-y: auto;">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>索引範圍</th>
+                                            <th>檔案名稱</th>
+                                            <th>寬度</th>
+                                            <th>高度</th>
+                                            <th>行數</th>
+                                            <th>列數</th>
+                                            <th>總圖片數</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var sprite in EditorState.CurrentLF2DataFile.Sprites)
+                                        {
+                                            <tr>
+                                                <td><span class="badge bg-primary">@sprite.StartIndex - @sprite.EndIndex</span></td>
+                                                <td><code>@sprite.File</code></td>
+                                                <td>@sprite.Width px</td>
+                                                <td>@sprite.Height px</td>
+                                                <td>@sprite.Row</td>
+                                                <td>@sprite.Col</td>
+                                                <td><span class="badge bg-success">@(sprite.Row * sprite.Col)</span></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="mt-4">
+                                <h6>統計資訊</h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        精靈圖表總數
+                                        <span class="badge bg-primary rounded-pill">@EditorState.CurrentLF2DataFile.Sprites.Count</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        總圖片數量
+                                        <span class="badge bg-success rounded-pill">@EditorState.CurrentLF2DataFile.Sprites.Sum(s => s.Row * s.Col)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (!string.IsNullOrEmpty(EditorState.CurrentFilePath))
+                {
+                    <div class="alert alert-warning">
+                        <h4 class="alert-heading">沒有找到精靈圖表</h4>
+                        <p>目前開啟的檔案中沒有精靈圖表資訊。</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <h4 class="alert-heading">請選擇一個 .dat 檔案</h4>
+                        <p>從左側的檔案瀏覽器中選擇一個 LF2 數據檔案（.dat），以查看其精靈圖表資訊。</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sprites-page {
+        padding: 2rem 0;
+    }
+
+    .table code {
+        color: #d63384;
+        background-color: #f8f9fa;
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.25rem;
+    }
+</style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        EditorState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        EditorState.OnChange -= StateHasChanged;
+    }
+}
+

@@ -11,5 +11,9 @@
     <PackageReference Include="BlazorMonaco" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LF2IDE.Standard\LF2IDE.Standard.csproj" />
+  </ItemGroup>
+
 </Project>
 

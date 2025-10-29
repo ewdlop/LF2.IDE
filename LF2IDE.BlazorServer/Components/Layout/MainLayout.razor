@@ -69,23 +69,23 @@
         <div class="properties-panel">
             <div class="panel-header">屬性面板</div>
             <div class="panel-content">
-                @if (EditorState.CurrentDataFile != null)
+                @if (EditorState.CurrentLF2DataFile != null)
                 {
                     <div class="property-group">
                         <div class="property-label">文件名</div>
-                        <div class="property-value">@EditorState.CurrentDataFile.FileName</div>
+                        <div class="property-value">@EditorState.CurrentLF2DataFile.FileName</div>
                     </div>
                     <div class="property-group">
                         <div class="property-label">已加密</div>
-                        <div class="property-value">@(EditorState.CurrentDataFile.IsEncrypted ? "是" : "否")</div>
+                        <div class="property-value">@(EditorState.CurrentLF2DataFile.IsEncrypted ? "是" : "否")</div>
                     </div>
                     <div class="property-group">
                         <div class="property-label">框架數量</div>
-                        <div class="property-value">@EditorState.CurrentDataFile.Frames.Count</div>
+                        <div class="property-value">@EditorState.CurrentLF2DataFile.Frames.Count</div>
                     </div>
                     <div class="property-group">
                         <div class="property-label">精靈數量</div>
-                        <div class="property-value">@EditorState.CurrentDataFile.Sprites.Count</div>
+                        <div class="property-value">@EditorState.CurrentLF2DataFile.Sprites.Count</div>
                     </div>
                 }
                 else

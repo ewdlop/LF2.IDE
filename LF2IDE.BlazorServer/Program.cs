@@ -1,5 +1,6 @@
 using LF2IDE.BlazorServer.Components;
 using LF2IDE.BlazorServer.Services;
+using LF2IDE.Standard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
