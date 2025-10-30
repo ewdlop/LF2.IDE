@@ -1,33 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A89A480F-BED8-4268-AF8A-99D8CAC146CC}</ProjectGuid>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LF2.IDE</RootNamespace>
     <AssemblyName>LF2 IDE</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Main.ico</ApplicationIcon>
     <StartupObject>LF2.IDE.Program</StartupObject>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <SignAssembly>true</SignAssembly>
     <DelaySign>False</DelaySign>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -42,37 +26,28 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <TargetZone>Custom</TargetZone>
+    <GenerateManifests>false</GenerateManifests>
+    <AssemblyOriginatorKeyFile>LF2.IDE.snk</AssemblyOriginatorKeyFile>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PostBuildEvent>del "$(TargetDir)CSScriptLibrary.xml"
+del "$(TargetDir)ScintillaNET.xml"
+echo. &gt; "$(TargetDir)IDL.dll"
+xcopy /Y "$(SolutionDir)Assemblies\IDL\IDL.dll" "$(TargetDir)IDL.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
-    <PlatformTarget>x86</PlatformTarget>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <Prefer32Bit>true</Prefer32Bit>
-    <PlatformTarget>x86</PlatformTarget>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <RegisterForComInterop>False</RegisterForComInterop>
@@ -80,314 +55,68 @@
     <BaseAddress>4194304</BaseAddress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
     <StartAction>Project</StartAction>
   </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>Custom</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <DebugType>Full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <DebugType>Full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>LF2.IDE.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\WMPLib\signed\AxInterop.WMPLib.dll</HintPath>
-    </Reference>
-    <Reference Include="CSScriptLibrary">
-      <HintPath>..\Assemblies\CSScriptLibrary\CSScriptLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <HintPath>..\Assemblies\WMPLib\signed\Interop.WMPLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="ScintillaNET, Version=2.5.2.0, Culture=neutral, PublicKeyToken=948d6c9751444115, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\ScintillaNET v2.5.2\ScintillaNET.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WeifenLuo.WinFormsUI.Docking">
-      <HintPath>..\Assemblies\WeifenLuo.WinFormsUI.Docking\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LF2\DataType.cs" />
-    <Compile Include="FormIDL.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormIDL.Designer.cs">
-      <DependentUpon>FormIDL.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LF2\ObjectType.cs" />
-    <Compile Include="HelperTools.cs" />
-    <Compile Include="TagBox.cs">
+    <Compile Update="TagBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IDL.cs" />
-    <None Include="app.manifest" />
     <None Include="DataUtils\UnsafeLF2DataAlgorithm.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="DrawBox.cs">
+    <Compile Update="DrawBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SpriteSheet.cs" />
-    <Compile Include="FormTextureEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormTextureEditor.Designer.cs">
-      <DependentUpon>FormTextureEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormImageSaver.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormImageSaver.Designer.cs">
-      <DependentUpon>FormImageSaver.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormSpriteMirrorer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormSpriteMirrorer.Designer.cs">
-      <DependentUpon>FormSpriteMirrorer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormReziseTexture.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormReziseTexture.Designer.cs">
-      <DependentUpon>FormReziseTexture.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormTransparencyTools.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormTransparencyTools.Designer.cs">
-      <DependentUpon>FormTransparencyTools.cs</DependentUpon>
-    </Compile>
-    <None Include="app.config" />
-    <Compile Include="PluginManager.cs" />
-    <Compile Include="LF2DataUtils.cs" />
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormEventLog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormEventLog.Designer.cs">
-      <DependentUpon>FormEventLog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormSpriteViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormSpriteViewer.Designer.cs">
-      <DependentUpon>FormSpriteViewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormSettings.Designer.cs">
-      <DependentUpon>FormSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DocumentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DocumentForm.Designer.cs">
-      <DependentUpon>DocumentForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormDesign.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDesign.Designer.cs">
-      <DependentUpon>FormDesign.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormFrame.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormFrame.Designer.cs">
-      <DependentUpon>FormFrame.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormShape.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormShape.Designer.cs">
-      <DependentUpon>FormShape.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MediaPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MediaPanel.Designer.cs">
-      <DependentUpon>MediaPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IconLib.cs" />
-    <None Include="LF2.IDE.snk" />
     <None Include="Plugins\ExamplePlugin.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="Settings.cs" />
-    <Compile Include="UtilManager.cs" />
-    <Compile Include="PreviewForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PreviewForm.Designer.cs">
-      <DependentUpon>PreviewForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DocumentForm.resx">
-      <DependentUpon>DocumentForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormIDL.resx">
-      <DependentUpon>FormIDL.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormTextureEditor.resx">
-      <DependentUpon>FormTextureEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormImageSaver.resx">
-      <DependentUpon>FormImageSaver.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormSpriteMirrorer.resx">
-      <DependentUpon>FormSpriteMirrorer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormReziseTexture.resx">
-      <DependentUpon>FormReziseTexture.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormTransparencyTools.resx">
-      <DependentUpon>FormTransparencyTools.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormEventLog.resx">
-      <DependentUpon>FormEventLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormSpriteViewer.resx">
-      <DependentUpon>FormSpriteViewer.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormSettings.resx">
-      <DependentUpon>FormSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDesign.resx">
-      <DependentUpon>FormDesign.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormFrame.resx">
-      <DependentUpon>FormFrame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormShape.resx">
-      <DependentUpon>FormShape.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MediaPanel.resx">
-      <DependentUpon>MediaPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.resx">
-      <DependentUpon>PreviewForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SolutionExplorer.resx">
-      <DependentUpon>SolutionExplorer.cs</DependentUpon>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="data.lang.xml">
+    <None Update="data.lang.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Menu\excol.png" />
-    <None Include="Templates\AI.as">
+    <None Update="Templates\AI.as">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Attack.dat">
+    <None Update="Templates\Attack.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Char.dat">
+    <None Update="Templates\Char.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\BG.dat">
+    <None Update="Templates\BG.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Stage.dat">
+    <None Update="Templates\Stage.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Weapon.dat">
+    <None Update="Templates\Weapon.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="SolutionExplorer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SolutionExplorer.Designer.cs">
-      <DependentUpon>SolutionExplorer.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assemblies\ScintillaNET v2.5.2\SciLexer.dll">
@@ -400,7 +129,7 @@
     </None>
     <Content Include="Main.ico" />
     <Content Include="Main_.ico" />
-    <None Include="docking.xml">
+    <None Update="docking.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Resources\Bitmap Icons\favicon128x128.bmp" />
@@ -431,7 +160,6 @@
     <Content Include="Resources\check.bmp" />
     <Content Include="Resources\Cursors\bdy.png" />
     <Content Include="Resources\Cursors\bpoint.png" />
-    <None Include="Resources\Cursors\center.png" />
     <Content Include="Resources\Cursors\cpoint.png" />
     <Content Include="Resources\Cursors\itr.png" />
     <Content Include="Resources\Cursors\opoint.png" />
@@ -502,9 +230,6 @@
     <Content Include="Resources\lightning.ico" />
     <Content Include="Resources\link.png" />
     <Content Include="Resources\link_break.png" />
-    <None Include="Resources\MB__back.png" />
-    <None Include="Resources\MB__back_16linear.png" />
-    <None Include="Resources\MB__forward_16linear.png" />
     <Content Include="Resources\Menu\bigger.png" />
     <Content Include="Resources\Menu\collapse.png" />
     <Content Include="Resources\Menu\ControlPanel.png" />
@@ -519,7 +244,6 @@
     <Content Include="Resources\Menu\ImageEditUndo.png" />
     <Content Include="Resources\Menu\ImageFileSaveAll.png" />
     <Content Include="Resources\Menu\lightning.png" />
-    <None Include="Resources\Menu\refresh.png" />
     <Content Include="Resources\Menu\reopen.png" />
     <Content Include="Resources\Menu\replace.png" />
     <Content Include="Resources\Menu\sas.png" />
@@ -549,23 +273,21 @@
     <Content Include="Resources\Weapon\weapon34.bmp" />
     <Content Include="Resources\Weapon\weapon35.bmp" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
-  <PropertyGroup>
-    <PostBuildEvent>del "$(TargetDir)CSScriptLibrary.xml"
-del "$(TargetDir)ScintillaNET.xml"
-echo. &gt; "$(TargetDir)IDL.dll"
-xcopy /Y "$(SolutionDir)Assemblies\IDL\IDL.dll" "$(TargetDir)IDL.dll"</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <Reference Include="AxInterop.WMPLib">
+      <HintPath>..\assemblies\WMPLib\signed\AxInterop.WMPLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CSScriptLibrary">
+      <HintPath>..\assemblies\CSScriptLibrary\CSScriptLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.WMPLib">
+      <HintPath>..\assemblies\WMPLib\signed\Interop.WMPLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ScintillaNET">
+      <HintPath>..\assemblies\ScintillaNET v2.5.2\ScintillaNET.dll</HintPath>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\assemblies\WeifenLuo.WinFormsUI.Docking\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

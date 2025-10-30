@@ -1553,7 +1553,6 @@
 			this.toolStrip_Fold.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-
 		}
 		public System.Windows.Forms.ToolStripButton insertDummyToolStripButton;
 		public ScintillaNET.ToolStripIncrementalSearcher toolStripIncrementalSearcher;
