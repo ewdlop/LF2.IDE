@@ -31,16 +31,16 @@
                             <dt class="col-sm-4">檔案路徑：</dt>
                             <dd class="col-sm-8"><small>@EditorState.CurrentFilePath</small></dd>
 
-                            @if (EditorState.CurrentLF2DataFile != null)
+                            @if (EditorState.CurrentDataFile != null)
                             {
                                 <dt class="col-sm-4">數據名稱：</dt>
-                                <dd class="col-sm-8">@EditorState.CurrentLF2DataFile.Name</dd>
+                                <dd class="col-sm-8">@EditorState.CurrentDataFile.Name</dd>
 
                                 <dt class="col-sm-4">精靈圖表：</dt>
-                                <dd class="col-sm-8">@EditorState.CurrentLF2DataFile.Sprites.Count 個</dd>
+                                <dd class="col-sm-8">@EditorState.CurrentDataFile.Sprites.Count 個</dd>
 
                                 <dt class="col-sm-4">框架總數：</dt>
-                                <dd class="col-sm-8">@EditorState.CurrentLF2DataFile.Frames.Count 個</dd>
+                                <dd class="col-sm-8">@EditorState.CurrentDataFile.Frames.Count 個</dd>
                             }
                         </dl>
                     }

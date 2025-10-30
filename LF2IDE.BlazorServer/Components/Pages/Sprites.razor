@@ -26,11 +26,11 @@
 
             <!-- 右側：精靈圖表列表 -->
             <div class="col-md-9">
-                @if (EditorState.CurrentLF2DataFile != null && EditorState.CurrentLF2DataFile.Sprites.Any())
+                @if (EditorState.CurrentDataFile != null && EditorState.CurrentDataFile.Sprites.Any())
                 {
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0">精靈圖表 (@EditorState.CurrentLF2DataFile.Sprites.Count 個)</h5>
+                            <h5 class="mb-0">精靈圖表 (@EditorState.CurrentDataFile.Sprites.Count 個)</h5>
                         </div>
                         <div class="card-body" style="max-height: 70vh; overflow-y: auto;">
                             <div class="table-responsive">
@@ -47,7 +47,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var sprite in EditorState.CurrentLF2DataFile.Sprites)
+                                        @foreach (var sprite in EditorState.CurrentDataFile.Sprites)
                                         {
                                             <tr>
                                                 <td><span class="badge bg-primary">@sprite.StartIndex - @sprite.EndIndex</span></td>
@@ -68,11 +68,11 @@
                                 <ul class="list-group">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         精靈圖表總數
-                                        <span class="badge bg-primary rounded-pill">@EditorState.CurrentLF2DataFile.Sprites.Count</span>
+                                        <span class="badge bg-primary rounded-pill">@EditorState.CurrentDataFile.Sprites.Count</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         總圖片數量
-                                        <span class="badge bg-success rounded-pill">@EditorState.CurrentLF2DataFile.Sprites.Sum(s => s.Row * s.Col)</span>
+                                        <span class="badge bg-success rounded-pill">@EditorState.CurrentDataFile.Sprites.Sum(s => s.Row * s.Col)</span>
                                     </li>
                                 </ul>
                             </div>

@@ -3,7 +3,7 @@
 @inject EditorStateService EditorState
 
 <div class="code-editor-wrapper">
-    @if (EditorState.CurrentLF2DataFile != null)
+    @if (EditorState.CurrentDataFile != null)
     {
         <StandaloneCodeEditor @ref="_editor"
                               Id="lf2-editor"
