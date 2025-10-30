@@ -5,9 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters;
+using System.Text.Json;
 
 namespace LF2.IDE
 {
@@ -229,10 +227,10 @@ namespace LF2.IDE
 				if (modified && MessageBox.Show(string.IsNullOrEmpty(_filePath) ? "Do you want to save changes?" : "The data in the '" + _filePath + "' has changed.\r\nDo you want to save the changes?", "Texture Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) Save();
 				if (openFileDialog.ShowDialog() == DialogResult.OK)
 				{
-					BinaryFormatter bf = new BinaryFormatter();
-					FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open);
-					FormTextureEditor.Texture = (bool[,])bf.Deserialize(fs);
-					fs.Close();
+					using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open))
+					{
+						FormTextureEditor.Texture = JsonSerializer.Deserialize<bool[,]>(fs);
+					}
 					modified = false;
 					Text = Path.GetFileName(openFileDialog.FileName) + " - Texture Editor";
 					PicDraw();
@@ -262,10 +260,10 @@ namespace LF2.IDE
 		{
 			try
 			{
-				BinaryFormatter bf = new BinaryFormatter();
-				FileStream fs = new FileStream(filePath, FileMode.Create);
-				bf.Serialize(fs, FormTextureEditor.Texture);
-				fs.Close();
+				using (FileStream fs = new FileStream(filePath, FileMode.Create))
+				{
+					JsonSerializer.Serialize(fs, FormTextureEditor.Texture);
+				}
 				modified = false;
 				this.Text = Path.GetFileName(filePath) + " - Texture Editor";
 			}

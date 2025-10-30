@@ -29,6 +29,8 @@ namespace LF2.IDE
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(true);
 
+				System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
 				using (MainForm = new MainForm(args))
 					SingleInstanceApplication.Run(MainForm, NewInstanceHandler);
 			}
