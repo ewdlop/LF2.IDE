@@ -1,12 +1,13 @@
+@using LF2IDE.BlazorServer.Models
 @using LF2IDE.Standard.LF2
 @inject EditorStateService EditorState
 
 <div class="frame-list">
-    @if (EditorState.CurrentLF2DataFile != null && EditorState.CurrentLF2DataFile.Frames.Any())
+    @if (EditorState.CurrentDataFile != null && EditorState.CurrentDataFile.Frames.Any())
     {
-        <div class="frame-count">共 @EditorState.CurrentLF2DataFile.Frames.Count 個框架</div>
+        <div class="frame-count">共 @EditorState.CurrentDataFile.Frames.Count 個框架</div>
         <div class="frames-container">
-            @foreach (var frame in EditorState.CurrentLF2DataFile.Frames)
+            @foreach (var frame in EditorState.CurrentDataFile.Frames)
             {
                 <div class="frame-item" @onclick="() => SelectFrame(frame)">
                     <div class="frame-header">
